@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'widget/category_title.dart';
+import 'widget/food_card.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // bỏ thanh debug đỏ 
+      debugShowCheckedModeBanner: false, // bỏ thanh debug đỏ
       title: 'Food App',
       theme: ThemeData(
         fontFamily: "Poppins",
@@ -24,19 +27,41 @@ class MyApp extends StatelessWidget {
           button: TextStyle(
             fontWeight: FontWeight.bold,
           ),
+          title: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       home: HomeScreen(),
     );
   }
 }
- class HomeScreen extends StatelessWidget {
-   @override
-   Widget build(BuildContext context) {
-     return Scaffold(
-       body: Column( // từ trên xuống dưới 
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children:<Widget> [
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: Container(
+        padding: EdgeInsets.all(10),
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: kPrimaryColor.withOpacity(0.2)
+        ),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: kPrimaryColor
+          ),
+          child: SvgPicture.asset("assets/icons/plus.svg"),
+        ),
+      ),
+      body: Column(
+        // từ trên xuống dưới
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 50, right: 16),
             child: Align(
@@ -54,19 +79,34 @@ class MyApp extends StatelessWidget {
               style: Theme.of(context).textTheme.headline,
             ),
           ),
-          SingleChildScrollView( 
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal, // scroll theo chieu nghang
             child: Row(
               children: <Widget>[
-                CategoryTitle(title: "All",active: true,), // chọn đối tượng -> Extract Widget
-                CategoryTitle(title: "Italian",active: false,),
-                CategoryTitle(title: "Asian",active: false,),
-                CategoryTitle(title: "Chinese",active: false,),
-                CategoryTitle(title: "Burgers", active: false,),
+                CategoryTitle(
+                  title: "All",
+                  active: true,
+                ), // chọn đối tượng -> Extract Widget
+                CategoryTitle(
+                  title: "Italian",
+                  active: false,
+                ),
+                CategoryTitle(
+                  title: "Asian",
+                  active: false,
+                ),
+                CategoryTitle(
+                  title: "Chinese",
+                  active: false,
+                ),
+                CategoryTitle(
+                  title: "Burgers",
+                  active: false,
+                ),
               ],
             ),
           ),
-          //Tim kiếm 
+          //Tim kiếm
           Container(
             alignment: Alignment.centerLeft,
             height: 50,
@@ -74,38 +114,42 @@ class MyApp extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: kBorderColor)
-            ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: kBorderColor)),
             child: SvgPicture.asset("assets/icons/search.svg"),
           ),
-         ],
-       ),
-     );
-   }
- }
-
-class CategoryTitle extends StatelessWidget {
-  final String title;
-  final bool active;
-
-  const CategoryTitle({
-    Key key,
-    this.title,
-    this.active = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 30),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.button.copyWith(
-          color: active ? kPrimaryColor : kTextColor.withOpacity(0.5),
-        ),
+          // Food
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: <Widget>[
+                FoodCard(
+                  title: "Vegan salad bowl",
+                  image: "assets/images/image_1.png",
+                  price: 20,
+                  caloies: "420Kcal",
+                  description:
+                      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
+                ),
+                FoodCard(
+                  title: "Vegan salad bowl",
+                  image: "assets/images/image_2.png",
+                  price: 20,
+                  caloies: "420Kcal",
+                  description:
+                      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
+                ),
+                SizedBox(
+                  width: 20,
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
 
