@@ -1,4 +1,5 @@
 import 'package:B2_FoodDelivery/constants.dart';
+import 'package:B2_FoodDelivery/detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,15 +47,11 @@ class HomeScreen extends StatelessWidget {
         width: 80,
         height: 80,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: kPrimaryColor.withOpacity(0.2)
-        ),
+            shape: BoxShape.circle, color: kPrimaryColor.withOpacity(0.2)),
         child: Container(
           padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: kPrimaryColor
-          ),
+          decoration:
+              BoxDecoration(shape: BoxShape.circle, color: kPrimaryColor),
           child: SvgPicture.asset("assets/icons/plus.svg"),
         ),
       ),
@@ -124,6 +121,14 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 FoodCard(
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return DetailFood();
+                      }),
+                    );
+                  },
                   title: "Vegan salad bowl",
                   image: "assets/images/image_1.png",
                   price: 20,
@@ -132,6 +137,14 @@ class HomeScreen extends StatelessWidget {
                       "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ",
                 ),
                 FoodCard(
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return DetailFood();
+                      }),
+                    );
+                  },
                   title: "Vegan salad bowl",
                   image: "assets/images/image_2.png",
                   price: 20,
@@ -150,6 +163,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
